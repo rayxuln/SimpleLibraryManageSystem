@@ -11,14 +11,17 @@
 
 #include "MenuManager.h"
 #include "BookManager.h"
+#include "BorrowerManager.h"
 
 class App {
     std::shared_ptr<MenuManager> menuManager;
     std::shared_ptr<BookManager> bookManager;
+    std::shared_ptr<BorrowerManager> borrowerManager;
 
     bool is_quit;
 public:
     inline auto GetBookManager() {return bookManager;}
+    inline auto GetBorrowerManager() {return borrowerManager;}
 
     int Run(std::vector<std::string> &args);
 

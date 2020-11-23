@@ -10,7 +10,6 @@
 #include "App.h"
 
 #include <iostream>
-#include <string>
 
 void BookManageMenu::Show() {
     ShowTitle();
@@ -57,18 +56,18 @@ void BookManageMenu::ShowBooks() {
     const std::string column_wide = "--------------------------------";
 
     std::cout<<std::endl;
-    std::cout<<"编号\t\t\t\t\t\t\t\t名称\t\t\t\t\t\t\t\t作者\t\t\t\t\t\t\t\t数量\t\t\t\t\t\t\t\t借出"<<std::endl;
+    std::cout<<"编号\t\t\t\t名称\t\t\t\t作者\t\t\t\t数量\t\t\t\t借出"<<std::endl;
     std::cout<<column_wide<<column_wide<<column_wide<<column_wide<<column_wide<<std::endl;
     for(auto &d:bookManager->Data())
     {
         std::cout<<d.id;
-        std::cout<<"\t\t\t\t\t\t\t\t";
+        std::cout<<"\t\t\t\t";
         std::cout<<d.name;
-        std::cout<<"\t\t\t\t\t\t\t\t";
+        std::cout<<"\t\t\t\t";
         std::cout<<d.author;
-        std::cout<<"\t\t\t\t\t\t\t\t";
+        std::cout<<"\t\t\t\t";
         std::cout<<d.num;
-        std::cout<<"\t\t\t\t\t\t\t\t";
+        std::cout<<"\t\t\t\t";
         std::cout<<d.lent;
         std::cout<<std::endl;
     }

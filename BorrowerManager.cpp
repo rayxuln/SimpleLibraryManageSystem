@@ -2,23 +2,20 @@
 // Created by Raymond_Lx on 2020/11/23.
 //
 
-#include "BookManager.h"
+#include "BorrowerManager.h"
 #include "Utils.h"
 
 #include <utility>
 #include <iostream>
 #include <RixJson.h>
 
-void BookManager::Add(const std::string &_n, const std::string &_a, int _num){
+void BorrowerManager::Add(const std::string &_n){
     DataType d;
     d.id = id_count++;
     d.name = _n;
-    d.author = _a;
-    d.num = _num;
-    d.lent = 0;
     data.push_back(d);
 }
-BookManager::DataType &BookManager::GetDataRef(int id){
+BorrowerManager::DataType &BorrowerManager::GetDataRef(int id){
     for(auto &d:data)
     {
         if(d.id == id)
@@ -28,7 +25,7 @@ BookManager::DataType &BookManager::GetDataRef(int id){
     }
     throw NullDataException();
 }
-void BookManager::Remove(int id){
+void BorrowerManager::Remove(int id){
     for(auto d=data.begin(); d!=data.end(); ++d)
     {
         if((*d).id == id)
@@ -40,12 +37,12 @@ void BookManager::Remove(int id){
     throw NullDataException();
 }
 
-bool BookManager::Has(int id) {
+bool BorrowerManager::Has(int id) {
     return std::any_of(data.begin(), data.end(), [id](DataType d){return d.id==id;});
 }
 
 
-void BookManager::Save(){
+void BorrowerManager::Save(){
     std::cout<<"Saving data file: "<<dataFilePath<<std::endl;
 
     Rix::Json::Object jo;
@@ -63,9 +60,27 @@ void BookManager::Save(){
 
         jo_d.Add("id", (double)d.id);
         jo_d.Add("name", d.name);
-        jo_d.Add("author", d.author);
-        jo_d.Add("num", (double)d.num);
-        jo_d.Add("lent", (double)d.lent);
+
+        Rix::Json::Object jo_borrow_history;
+        jo_borrow_history.SetType(Rix::Json::ARRAY);
+        for(auto &history:d.borrowHistory)
+        {
+            jo_borrow_history.Add((double)history);
+        }
+        jo_d.Add("borrowHistory", jo_borrow_history);
+
+        Rix::Json::Object jo_borrowing;
+        jo_borrow_history.SetType(Rix::Json::ARRAY);
+        for(auto &b:d.borrowing)
+        {
+            Rix::Json::Object jo_b;
+            jo_b.SetType(Rix::Json::OBJECT);
+            jo_b.Add("id", (double)b.first);
+            jo_b.Add("num", (double)b.second);
+
+            jo_borrowing.Add(jo_b);
+        }
+        jo_d.Add("borrowing", jo_borrow_history);
 
         jo_data.Add(jo_d);
     }
@@ -76,7 +91,7 @@ void BookManager::Save(){
 
     std::cout<<"Data file: "<<dataFilePath<<" saved!"<<std::endl;
 }
-void BookManager::Load(){
+void BorrowerManager::Load(){
     std::cout<<"Loading data file: "<<dataFilePath<<std::endl;
     std::string dataFileString = Utils::ReadFile(dataFilePath);
     if(dataFileString.empty())
@@ -100,9 +115,18 @@ void BookManager::Load(){
 
             d.id = jo_d.Get("id").AsInt();
             d.name = jo_d.Get("name").AsString();
-            d.author = jo_d.Get("author").AsString();
-            d.num = jo_d.Get("num").AsInt();
-            d.lent = jo_d.Get("lent").AsInt();
+
+            auto &jo_borrow_history = jo_d.Get("borrowHistory").AsArray();
+            for(auto &jo_history:jo_borrow_history)
+            {
+                d.borrowHistory.push_back(jo_history.AsInt());
+            }
+
+            auto &jo_borrowing = jo_d.Get("borrowing").AsArray();
+            for(auto &jo_b:jo_borrowing)
+            {
+                d.borrowing.emplace_back(jo_b.Get("id").AsInt(), jo_b.Get("num").AsInt());
+            }
 
             data.push_back(d);
         }
@@ -116,6 +140,5 @@ void BookManager::Load(){
     }
 }
 
-BookManager::BookManager(std::string _dataFilePath):dataFilePath(std::move(_dataFilePath)){}
-BookManager::~BookManager() = default;
-
+BorrowerManager::BorrowerManager(std::string _dataFilePath):dataFilePath(std::move(_dataFilePath)){}
+BorrowerManager::~BorrowerManager() = default;

@@ -5,8 +5,6 @@
 #include "MainMenu.h"
 #include "App.h"
 
-#include <iostream>
-
 
 int App::Run(std::vector<std::string> &args) {
     menuManager = std::shared_ptr<MenuManager>(new MenuManager(std::shared_ptr<Menu>(new MainMenu())));
@@ -14,6 +12,9 @@ int App::Run(std::vector<std::string> &args) {
 
     bookManager = std::shared_ptr<BookManager>(new BookManager("book_data.json"));
     bookManager->Load();
+
+    borrowerManager = std::shared_ptr<BorrowerManager>(new BorrowerManager("borrower_data.json"));
+    borrowerManager->Load();
 
     is_quit = false;
     do{

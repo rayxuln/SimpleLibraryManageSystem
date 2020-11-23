@@ -9,6 +9,6 @@ include_directories(./RixJson/inc)
 
 add_executable(SimpleLibraryManageSystem
         main.cpp
-        App.cpp App.h MenuManager.cpp MenuManager.h Menu.cpp Menu.h ItemListMenu.cpp ItemListMenu.h MainMenu.cpp MainMenu.h Utils.cpp Utils.h BookManager.cpp BookManager.h BookManageMenu.cpp BookManageMenu.h BookManageAddMenu.cpp BookManageAddMenu.h BookManageUpdateMenu.cpp BookManageUpdateMenu.h BookManageDeleteMenu.cpp BookManageDeleteMenu.h)
+        App.cpp App.h MenuManager.cpp MenuManager.h Menu.cpp Menu.h ItemListMenu.cpp ItemListMenu.h MainMenu.cpp MainMenu.h Utils.cpp Utils.h BookManager.cpp BookManager.h BookManageMenu.cpp BookManageMenu.h BookManageAddMenu.cpp BookManageAddMenu.h BookManageUpdateMenu.cpp BookManageUpdateMenu.h BookManageDeleteMenu.cpp BookManageDeleteMenu.h BorrowerManager.cpp BorrowerManager.h BorrowerManageMenu.cpp BorrowerManageMenu.h BorrowerManageAddMenu.cpp BorrowerManageAddMenu.h BorrowerManageUpdateMenu.cpp BorrowerManageUpdateMenu.h BorrowerManageDelete.cpp BorrowerManageDelete.h)
 
 target_link_libraries(SimpleLibraryManageSystem RixJson)

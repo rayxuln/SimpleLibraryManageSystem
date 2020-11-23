@@ -4,6 +4,7 @@
 
 #include "MainMenu.h"
 #include "BookManageMenu.h"
+#include "BorrowerManageMenu.h"
 #include "MenuManager.h"
 #include "App.h"
 
@@ -30,6 +31,7 @@ bool MainMenu::HandleInput(int n) {
         case 1:
             return true;
         case 2:
+            menuManager->Goto(std::shared_ptr<BorrowerManageMenu>(new BorrowerManageMenu()));
             return true;
         case 3:
             menuManager->GetApp()->Quit();
