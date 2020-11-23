@@ -30,6 +30,8 @@ public:
         ss>>res;
         return res;
     }
+
+    static std::string GetToday();
 };
 
 

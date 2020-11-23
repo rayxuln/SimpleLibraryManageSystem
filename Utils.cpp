@@ -5,6 +5,7 @@
 #include "Utils.h"
 
 #include <fstream>
+#include <ctime>
 
 
 void Utils::WriteFile(const std::string &path, const std::string &text) {
@@ -29,5 +30,14 @@ std::string Utils::ReadFile(const std::string &path) {
         res += line;
     }
     return res;
+}
+
+std::string Utils::GetToday() {
+    time_t t;
+    time(&t);
+    auto p = localtime(&t);
+    std::stringstream ss;
+    ss<<p->tm_year<<"-"<<p->tm_mon<<"-"<<p->tm_mday;
+    return ss.str();
 }
 

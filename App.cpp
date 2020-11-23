@@ -16,6 +16,9 @@ int App::Run(std::vector<std::string> &args) {
     borrowerManager = std::shared_ptr<BorrowerManager>(new BorrowerManager("borrower_data.json"));
     borrowerManager->Load();
 
+    borrowManager = std::shared_ptr<BorrowManager>(new BorrowManager("borrow_data.json", this));
+    borrowManager->Load();
+
     is_quit = false;
     do{
         menuManager->Show();

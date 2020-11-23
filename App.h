@@ -12,11 +12,13 @@
 #include "MenuManager.h"
 #include "BookManager.h"
 #include "BorrowerManager.h"
+#include "BorrowManager.h"
 
 class App {
     std::shared_ptr<MenuManager> menuManager;
     std::shared_ptr<BookManager> bookManager;
     std::shared_ptr<BorrowerManager> borrowerManager;
+    std::shared_ptr<BorrowManager> borrowManager;
 
     bool is_quit;
 public:
