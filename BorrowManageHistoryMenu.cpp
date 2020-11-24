@@ -38,17 +38,11 @@ void BorrowManageHistoryMenu::ShowHistory() {
 
     for(auto &d:borrowManager->Data())
     {
-        auto &borrower_d = borrowerManager->GetDataRef(d.borrowerId);
-        std::cout<<d.date<<", "<<borrower_d.name<<" "<<(d.action==0?"借了 ":"还了 ");
-        for(size_t i=0; i<d.book.size(); ++i)
-        {
-            auto &book_d = bookManager->GetDataRef(d.book[i].first);
-            std::cout<<d.book[i].second<<"本《"<<book_d.name<<"》";
-            if(i < d.book.size()-1)
-                std::cout<<",";
-        }
-        std::cout<<std::endl<<std::endl;
+        std::cout<<borrowManager->ToHistoryString(d);
+        std::cout<<std::endl;
     }
+
+    std::cout<<std::endl;
 }
 
 BorrowManageHistoryMenu::~BorrowManageHistoryMenu() = default;

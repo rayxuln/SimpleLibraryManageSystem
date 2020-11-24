@@ -255,6 +255,25 @@ void BorrowManager::Return(const std::vector<std::pair<int, int>> &book, int bor
     }
 }
 
+std::string BorrowManager::ToHistoryString(const BorrowManager::DataType &d) {
+    auto bookManager = app->GetBookManager();
+    auto borrowerManager = app->GetBorrowerManager();
+
+    std::stringstream ss;
+
+    auto &borrower_d = borrowerManager->GetDataRef(d.borrowerId);
+    ss<<d.date<<", "<<borrower_d.name<<" "<<(d.action==0?"借了 ":"还了 ");
+    for(size_t i=0; i<d.book.size(); ++i)
+    {
+        auto &book_d = bookManager->GetDataRef(d.book[i].first);
+        ss<<d.book[i].second<<"本《"<<book_d.name<<"》";
+        if(i < d.book.size()-1)
+            ss<<",";
+    }
+
+    return ss.str();
+}
+
 BorrowManager::BorrowManager(std::string _dataFilePath, App *_app):dataFilePath(std::move(_dataFilePath)),app(_app){}
 
 BorrowManager::~BorrowManager() = default;

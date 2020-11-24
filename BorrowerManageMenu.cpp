@@ -6,6 +6,8 @@
 #include "BorrowerManageAddMenu.h"
 #include "BorrowerManageUpdateMenu.h"
 #include "BorrowerManageDelete.h"
+#include "BorrowerManageBorrowHistoryMenu.h"
+#include "BorrowerManageBorrowingMenu.h"
 #include "MenuManager.h"
 #include "App.h"
 
@@ -63,8 +65,10 @@ bool BorrowerManageMenu::HandleInput(int n) {
             menuManager->Goto(std::shared_ptr<BorrowerManageDelete>(new BorrowerManageDelete()));
             return true;
         case 3:
+            menuManager->Goto(std::shared_ptr<BorrowerManageBorrowHistoryMenu>(new BorrowerManageBorrowHistoryMenu()));
             return true;
         case 4:
+            menuManager->Goto(std::shared_ptr<BorrowerManageBorrowingMenu>(new BorrowerManageBorrowingMenu()));
             return true;
     }
     return false;

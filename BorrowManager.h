@@ -43,6 +43,8 @@ public:
 
     inline auto &Data(){return data;}
 
+    std::string ToHistoryString(const DataType &d);
+
     void Save();
     void Load();
 
