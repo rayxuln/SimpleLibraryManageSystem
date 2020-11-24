@@ -5,6 +5,7 @@
 #include "BorrowManageMenu.h"
 #include "BorrowManageBorrowMenu.h"
 #include "BorrowManageReturnMenu.h"
+#include "BorrowManageHistoryMenu.h"
 #include "MenuManager.h"
 #include "App.h"
 
@@ -28,7 +29,7 @@ bool BorrowManageMenu::HandleInput(int n) {
             menuManager->Goto(std::shared_ptr<BorrowManageReturnMenu>(new BorrowManageReturnMenu));
             return true;
         case 2:
-            menuManager->Goto(std::shared_ptr<BorrowManageReturnMenu>(new BorrowManageReturnMenu));
+            menuManager->Goto(std::shared_ptr<BorrowManageHistoryMenu>(new BorrowManageHistoryMenu));
             return true;
     }
     return false;

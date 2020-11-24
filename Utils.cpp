@@ -37,7 +37,7 @@ std::string Utils::GetToday() {
     time(&t);
     auto p = localtime(&t);
     std::stringstream ss;
-    ss<<p->tm_year<<"-"<<p->tm_mon<<"-"<<p->tm_mday;
+    ss<<p->tm_year+1900<<"年"<<p->tm_mon+1<<"月"<<p->tm_mday<<"日";
     return ss.str();
 }
 
