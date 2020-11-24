@@ -9,10 +9,10 @@
 #include <string>
 #include <memory>
 
-#include "MenuManager.h"
-#include "BookManager.h"
-#include "BorrowerManager.h"
-#include "BorrowManager.h"
+#include "Manager/MenuManager.h"
+#include "Manager/BookManager.h"
+#include "Manager/BorrowerManager.h"
+#include "Manager/BorrowManager.h"
 
 class App {
     std::shared_ptr<MenuManager> menuManager;
