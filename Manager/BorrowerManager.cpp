@@ -15,31 +15,6 @@ void BorrowerManager::Add(const std::string &_n){
     d.name = _n;
     data.push_back(d);
 }
-BorrowerManager::DataType &BorrowerManager::GetDataRef(int id){
-    for(auto &d:data)
-    {
-        if(d.id == id)
-        {
-            return d;
-        }
-    }
-    throw NullDataException();
-}
-void BorrowerManager::Remove(int id){
-    for(auto d=data.begin(); d!=data.end(); ++d)
-    {
-        if((*d).id == id)
-        {
-            data.erase(d);
-            return;
-        }
-    }
-    throw NullDataException();
-}
-
-bool BorrowerManager::Has(int id) {
-    return std::any_of(data.begin(), data.end(), [id](DataType d){return d.id==id;});
-}
 
 
 void BorrowerManager::Save(){
@@ -140,5 +115,5 @@ void BorrowerManager::Load(){
     }
 }
 
-BorrowerManager::BorrowerManager(std::string _dataFilePath):dataFilePath(std::move(_dataFilePath)){}
+BorrowerManager::BorrowerManager(std::string _dataFilePath):DataManager<BorrowerManager_DataType>(std::move(_dataFilePath)){}
 BorrowerManager::~BorrowerManager() = default;

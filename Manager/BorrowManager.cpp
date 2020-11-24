@@ -21,32 +21,6 @@ BorrowManager::DataType &BorrowManager::Add(const std::vector<std::pair<int, int
     data.push_back(d);
     return data.back();
 }
-BorrowManager::DataType &BorrowManager::GetDataRef(int id){
-    for(auto &d:data)
-    {
-        if(d.id == id)
-        {
-            return d;
-        }
-    }
-    throw NullDataException();
-}
-void BorrowManager::Remove(int id){
-    for(auto d=data.begin(); d!=data.end(); ++d)
-    {
-        if((*d).id == id)
-        {
-            data.erase(d);
-            return;
-        }
-    }
-    throw NullDataException();
-}
-
-bool BorrowManager::Has(int id) {
-    return std::any_of(data.begin(), data.end(), [id](DataType d){return d.id==id;});
-}
-
 
 void BorrowManager::Save(){
     std::cout<<"Saving data file: "<<dataFilePath<<std::endl;
@@ -274,6 +248,6 @@ std::string BorrowManager::ToHistoryString(const BorrowManager::DataType &d) {
     return ss.str();
 }
 
-BorrowManager::BorrowManager(std::string _dataFilePath, App *_app):dataFilePath(std::move(_dataFilePath)),app(_app){}
+BorrowManager::BorrowManager(std::string _dataFilePath, App *_app):DataManager<BorrowManager_DataType>(std::move(_dataFilePath)),app(_app){}
 
 BorrowManager::~BorrowManager() = default;

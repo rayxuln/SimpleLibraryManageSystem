@@ -5,36 +5,26 @@
 #ifndef SIMPLELIBRARYMANAGESYSTEM_BORROWERMANAGER_H
 #define SIMPLELIBRARYMANAGESYSTEM_BORROWERMANAGER_H
 
-#include <vector>
-#include <string>
-#include <exception>
+#include "DataManager.h"
 
-class BorrowerManager {
-    struct DataType {
-        int id;
-        std::string name;
-        std::vector<int> borrowHistory;
-        std::vector<std::pair<int, int>> borrowing;
-    };
-    std::vector<DataType> data;
-    int id_count{};
+struct BorrowerManager_DataType {
+    int id;
+    std::string name;
+    std::vector<int> borrowHistory;
+    std::vector<std::pair<int, int>> borrowing;
+};
 
-    std::string dataFilePath;
 
-    class NullDataException : public std::exception {};
+class BorrowerManager : public DataManager<BorrowerManager_DataType> {
+    typedef BorrowerManager_DataType DataType;
 public:
     void Add(const std::string &_n);
-    DataType &GetDataRef(int id);
-    void Remove(int id);
-    bool Has(int id);
 
-    inline auto &Data(){return data;}
-
-    void Save();
-    void Load();
+    void Save() override;
+    void Load() override;
 
     explicit BorrowerManager(std::string _dataFilePath);
-    ~BorrowerManager();
+    ~BorrowerManager() override;
 };
 
 

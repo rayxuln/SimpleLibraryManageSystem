@@ -18,31 +18,7 @@ void BookManager::Add(const std::string &_n, const std::string &_a, int _num){
     d.lent = 0;
     data.push_back(d);
 }
-BookManager::DataType &BookManager::GetDataRef(int id){
-    for(auto &d:data)
-    {
-        if(d.id == id)
-        {
-            return d;
-        }
-    }
-    throw NullDataException();
-}
-void BookManager::Remove(int id){
-    for(auto d=data.begin(); d!=data.end(); ++d)
-    {
-        if((*d).id == id)
-        {
-            data.erase(d);
-            return;
-        }
-    }
-    throw NullDataException();
-}
 
-bool BookManager::Has(int id) {
-    return std::any_of(data.begin(), data.end(), [id](DataType d){return d.id==id;});
-}
 
 
 void BookManager::Save(){
@@ -116,6 +92,6 @@ void BookManager::Load(){
     }
 }
 
-BookManager::BookManager(std::string _dataFilePath):dataFilePath(std::move(_dataFilePath)){}
+BookManager::BookManager(std::string _dataFilePath):DataManager<BookManager_DataType>(std::move(_dataFilePath)){}
 BookManager::~BookManager() = default;
 

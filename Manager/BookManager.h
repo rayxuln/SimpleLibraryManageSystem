@@ -5,37 +5,26 @@
 #ifndef SIMPLELIBRARYMANAGESYSTEM_BOOKMANAGER_H
 #define SIMPLELIBRARYMANAGESYSTEM_BOOKMANAGER_H
 
-#include <vector>
-#include <string>
-#include <exception>
+#include "DataManager.h"
 
-class BookManager {
-    struct DataType {
-        int id;
-        std::string name;
-        std::string author;
-        int num;
-        int lent;
-    };
-    std::vector<DataType> data;
-    int id_count{};
+struct BookManager_DataType {
+    int id;
+    std::string name;
+    std::string author;
+    int num;
+    int lent;
+};
 
-    std::string dataFilePath;
-
-    class NullDataException : public std::exception {};
+class BookManager : public DataManager<BookManager_DataType> {
+    typedef BookManager_DataType DataType;
 public:
     void Add(const std::string &_n, const std::string &_a, int _num);
-    DataType &GetDataRef(int id);
-    void Remove(int id);
-    bool Has(int id);
 
-    inline auto &Data(){return data;}
-
-    void Save();
-    void Load();
+    void Save() override;
+    void Load() override;
 
     explicit BookManager(std::string _dataFilePath);
-    ~BookManager();
+    ~BookManager() override;
 };
 
 
