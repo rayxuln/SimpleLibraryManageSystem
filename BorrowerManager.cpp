@@ -70,7 +70,7 @@ void BorrowerManager::Save(){
         jo_d.Add("borrowHistory", jo_borrow_history);
 
         Rix::Json::Object jo_borrowing;
-        jo_borrow_history.SetType(Rix::Json::ARRAY);
+        jo_borrowing.SetType(Rix::Json::ARRAY);
         for(auto &b:d.borrowing)
         {
             Rix::Json::Object jo_b;
@@ -80,7 +80,7 @@ void BorrowerManager::Save(){
 
             jo_borrowing.Add(jo_b);
         }
-        jo_d.Add("borrowing", jo_borrow_history);
+        jo_d.Add("borrowing", jo_borrowing);
 
         jo_data.Add(jo_d);
     }

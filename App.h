@@ -24,6 +24,7 @@ class App {
 public:
     inline auto GetBookManager() {return bookManager;}
     inline auto GetBorrowerManager() {return borrowerManager;}
+    inline auto GetBorrowManager() {return borrowManager;}
 
     int Run(std::vector<std::string> &args);
 
